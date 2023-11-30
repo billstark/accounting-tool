@@ -1,0 +1,6 @@
+/target
+db-data
+.env
+.vscode
+migration/target
+entity/target
