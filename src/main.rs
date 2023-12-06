@@ -5,9 +5,7 @@ use dotenv::dotenv;
 use log::info;
 use sea_orm::{Database, ConnectOptions};
 use std::{net::SocketAddr, env};
-
-
-
+use migration::{Migrator, MigratorTrait};
 
 #[tokio::main]
 async fn main() {
@@ -26,6 +24,8 @@ async fn main() {
     let mut opt = ConnectOptions::new(conn_str);
     opt.sqlx_logging(false);
     let db = Database::connect(opt).await.expect("Error connecting to DB");
+
+    migration::Migrator::up(&db, None).await;
     info!("info: DB connection OK");
     println!("print: DB connection is OK");
 
