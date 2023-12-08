@@ -1,15 +1,12 @@
-#![allow(unused)]
-
 mod models;
 mod web;
 mod errors;
 
-use axum::{Router, response::Html, routing::get};
+use axum::Router;
 use dotenv::dotenv;
-use log::info;
 use sea_orm::{Database, ConnectOptions, DatabaseConnection};
-use std::{net::SocketAddr, env};
-use migration::{Migrator, MigratorTrait};
+use std::env;
+use migration::MigratorTrait;
 
 pub use self::errors::{Error, Result};
 
@@ -31,16 +28,19 @@ async fn main() {
     let db = Database::connect(opt).await.expect("Error connecting to DB");
     tracing::info!("DB connection ok");
     
-    migration::Migrator::up(&db, None).await;
+    let _ = migration::Migrator::up(&db, None).await;
     tracing::info!("DB migration ok");
     
     let state = AppState { conn: db };
-    let router = Router::new().merge(web::routes_txn_types::routes(state));
+    let router = Router::new()
+        .merge(web::routes_txn_types::routes(state.clone()))
+        .merge(web::routes_txn::routes(state.clone()));
 
     tracing::info!("Routing setup ok");
     tracing::info!("Listening to 0.0.0.0:8000");
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
     axum::serve(listener, router).await.unwrap();
+    
 }
 
 #[derive(Clone)]

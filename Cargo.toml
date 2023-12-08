@@ -8,13 +8,25 @@ edition = "2021"
 [dependencies]
 tokio = { verions = "1", features = ["full"] }
 axum = "0.7.1"
+
+# for time parsing
+
+
+# dotenv
 dotenv = "0.15.0"
+
+# ORM related
+chrono = "0.4.31"
 sea-orm = { version = "0.12", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
+uuid = { version = "1.6.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
+
+# Json
 serde = "1.0.193"
 serde_json = "1.0.108"
+
+## logging
 tracing = "0.1.37"
 tracing-subscriber = "0.3.16"
-log = "0.4"
 migration = { path = "migration" }
 entity = { path = "entity" }
 

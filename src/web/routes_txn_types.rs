@@ -30,9 +30,3 @@ pub async fn get_txn_types(state: State<AppState>) -> Result<Json<Value>> {
     };
 
 }
-
-
-#[derive(Debug)]
-struct TxnTypesResponse {
-
-}
