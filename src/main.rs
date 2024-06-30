@@ -21,8 +21,9 @@ async fn main() {
     let db_port = env::var("DB_PORT").unwrap();
     let db_username = env::var("DB_USERNAME").unwrap();
     let db_password = env::var("DB_PASSWORD").unwrap();
+    let db_name = env::var("DB_NAME").unwrap();
 
-    let conn_str = format!("postgres://{}:{}@{}:{}/accounting", db_username, db_password, db_host, db_port);
+    let conn_str = format!("postgres://{}:{}@{}:{}/{}", db_username, db_password, db_host, db_port, db_name);
     let mut opt = ConnectOptions::new(conn_str);
     opt.sqlx_logging(false);
     let db = Database::connect(opt).await.expect("Error connecting to DB");
