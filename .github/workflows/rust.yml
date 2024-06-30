@@ -1,0 +1,26 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: cargo build --verbose
+    - name: Rsync deployments
+      uses: burnett01/rsync-deployments@5.1
+      with:
+        path: ./target/debug/accounting
+        remote_path: /home/ubuntu/accounting
+        remote_host: "${{ secrets.REMOTE_SERVER_IP }}"
+        remote_user: ubuntu
+        remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
