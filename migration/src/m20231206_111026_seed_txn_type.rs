@@ -14,7 +14,7 @@ impl MigrationTrait for Migration {
 
 
         transaction_type::ActiveModel { 
-            id: Set(1),
+            id: Set(0),
             type_name: Set("dining".to_owned()),
             display_text: Set("Dining".to_owned()),
             desc: Set(Some("Breakfast, lunch, dinner and all dining related.".to_owned())),
@@ -24,7 +24,7 @@ impl MigrationTrait for Migration {
         }.insert(_db).await?;
 
         transaction_type::ActiveModel { 
-            id: Set(2),
+            id: Set(1),
             type_name: Set("shopping".to_owned()),
             display_text: Set("Shopping".to_owned()),
             desc: Set(Some("Buy things, either online or offline.".to_owned())),
@@ -34,7 +34,7 @@ impl MigrationTrait for Migration {
         }.insert(_db).await?;
 
         transaction_type::ActiveModel { 
-            id: Set(3),
+            id: Set(2),
             type_name: Set("grocery".to_owned()),
             display_text: Set("Grocery".to_owned()),
             desc: Set(Some("Supermarkets and other daily spends online.".to_owned())),
@@ -44,7 +44,7 @@ impl MigrationTrait for Migration {
         }.insert(_db).await?;
 
         transaction_type::ActiveModel { 
-            id: Set(4),
+            id: Set(3),
             type_name: Set("travel".to_owned()),
             display_text: Set("Travel".to_owned()),
             desc: Set(Some("Traveling.".to_owned())),
@@ -54,7 +54,7 @@ impl MigrationTrait for Migration {
         }.insert(_db).await?;
 
         transaction_type::ActiveModel { 
-            id: Set(5),
+            id: Set(4),
             type_name: Set("entertainment".to_owned()),
             display_text: Set("Entertainment".to_owned()),
             desc: Set(Some("Buy games, services, and others.".to_owned())),
@@ -64,7 +64,7 @@ impl MigrationTrait for Migration {
         }.insert(_db).await?;
 
         transaction_type::ActiveModel { 
-            id: Set(6),
+            id: Set(5),
             type_name: Set("transport".to_owned()),
             display_text: Set("Transportation".to_owned()),
             desc: Set(Some("Taxi, public transportation.".to_owned())),

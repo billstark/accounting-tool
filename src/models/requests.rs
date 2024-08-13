@@ -1,6 +1,6 @@
-use std::str::FromStr;
+use std::{any::Any, str::FromStr};
 use chrono::{DateTime, FixedOffset};
-use entity::transaction;
+use entity::{transaction, transaction_type};
 use sea_orm::{ActiveValue::Set, prelude::{Decimal, DateTimeWithTimeZone, ChronoDateTimeLocal, ChronoDateTimeWithTimeZone}};
 use serde::{Deserialize, de};
 use uuid::Uuid;
@@ -53,6 +53,24 @@ impl CreateTransactionRequest {
             txn_time: Set(self.txn_time),
             created_at: Default::default(),
             created_by: Set("HBB".to_string()),
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct CreateTransactionTypeRequest {
+    pub type_name: String,
+    pub display_text: String,
+    pub desc: Option<String>,
+}
+
+impl CreateTransactionTypeRequest {
+    pub fn to_model(self) -> transaction_type::ActiveModel {
+        transaction_type::ActiveModel { 
+            type_name: Set(self.type_name),
+            display_text: Set(self.display_text),
+            desc: Set(self.desc),
+            ..Default::default()
         }
     }
 }

@@ -38,3 +38,8 @@ impl TransactionResponse {
         }
     }
 }
+
+#[derive(Clone, Debug, Serialize)]
+pub struct CreateTransactionTypeResponse {
+    pub id: i32,
+}
